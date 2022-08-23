@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        javax:
+          cache:
+            provider: com.hazelcast.client.cache.impl.HazelcastClientCachingProvider
+            url: hazelcast-client.xml
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          generate_statistics: true
+          region:
+            factory_class: org.hibernate.cache.jcache.JCacheRegionFactory

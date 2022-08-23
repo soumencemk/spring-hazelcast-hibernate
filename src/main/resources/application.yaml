@@ -6,16 +6,11 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
-        javax:
-          cache:
-            provider: com.hazelcast.client.cache.impl.HazelcastClientCachingProvider
-            url: hazelcast-client.xml
+        show_sql: true
         cache:
           use_second_level_cache: true
-          use_query_cache: true
-          generate_statistics: true
           region:
-            factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+            factory_class: com.hazelcast.hibernate.HazelcastCacheRegionFactory

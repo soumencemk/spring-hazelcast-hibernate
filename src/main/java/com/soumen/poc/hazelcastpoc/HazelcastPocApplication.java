@@ -9,8 +9,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.hazelcast.HazelcastAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +25,8 @@ import javax.persistence.Id;
 import java.util.List;
 import java.util.stream.Stream;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = HazelcastAutoConfiguration.class)
+@EnableScheduling
 public class HazelcastPocApplication {
 
     public static void main(String[] args) {
@@ -61,7 +64,7 @@ interface EmployeeRepository extends JpaRepository<Employee, Long> {
 @NoArgsConstructor
 @AllArgsConstructor
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 class Employee {
     @Id
     @GeneratedValue
